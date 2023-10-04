@@ -1,0 +1,36 @@
+{
+  "name": "rovixen_backend_template_ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.17.14",
+    "@types/express-fileupload": "^1.4.2",
+    "@types/multer": "^1.4.7",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.1",
+    "module-alias": "^2.2.2",
+    "multer": "^1.4.5-lts.1",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9"
+  },
+  "scripts": {
+    "watch": "tsc && concurrently \"tsc --watch\" \"nodemon build/index.js\"",
+    "devtsnode": "yarn ts-node-dev ./src/index.ts",
+    "dev": "yarn watch",
+    "prod": "pm2 start ecosystem.config.js",
+    "prod_stop": "pm2 stop ecosystem.config.js",
+    "prod_delete": "pm2 delete ecosystem.config.js",
+    "prod_restart": "pm2 restart ecosystem.config.js",
+    "prod_reload": "pm2 reload ecosystem.config.js"
+  },
+  "_moduleAliases": {
+    "@@": "build"
+  }
+}
