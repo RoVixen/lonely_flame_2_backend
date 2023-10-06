@@ -3,38 +3,27 @@ import { mkdir } from "fs"
 import path from "path"
 import { generateUuid, splitUuid } from "../uuids"
 import getFilesPaths from "./getFilesPaths"
+import createPathFromUuid from "./createPathFromUuid"
 
 function saveSinglePicture(file: UploadedFile): {
   fileUuid: string
   fileName: string
   error: string | boolean
 } {
-  const fileTermination = file.name.split(".").pop()
+  const fileTermination = file.name.split(".").pop() as string
   const fileUuid = generateUuid()
-  const filePath = splitUuid(fileUuid).slice(0, 17)
-  const fileName = splitUuid(fileUuid).pop() + "." + fileTermination
 
-  const destinyFolder = path.resolve("./files/" + filePath.join("/"))
-
-  //this line makes a recursion, only if the file already exists
-  //keeping the file name single use
-  if (getFilesPaths(fileUuid + "." + fileTermination))
-    return saveSinglePicture(file)
+  // //this line makes a recursion, only if the file already exists
+  // //keeping the file name single use
+  const destinyData = createPathFromUuid(fileUuid, `.${fileTermination}`, true)
 
   let error: string | boolean = false
 
-  mkdir(destinyFolder, { recursive: true }, err => {
+  file.mv(destinyData.path, err => {
     if (err) {
       error = err.message
-      return console.log("mkdir", err)
+      return console.log("file.mv", error)
     }
-
-    file.mv(destinyFolder + "\\" + fileName, err => {
-      if (err) {
-        error = err.message
-        return console.log("file.mv", error)
-      }
-    })
   })
 
   return {

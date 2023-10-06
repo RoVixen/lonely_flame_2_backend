@@ -1,8 +1,8 @@
 import { Router } from "express"
-import sample from "./sample"
+import bot from "./bot"
 
 const routes = Router()
 
-routes.use("/sample", sample)
+routes.use("/bot", bot)
 
 export default routes

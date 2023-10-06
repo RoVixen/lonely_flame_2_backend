@@ -3,18 +3,6 @@ import { splitFileNamedUuid } from "../uuids"
 import path from "path"
 import { APP_FILES_ROOT } from "@@/config"
 
-function getFilesPath(fileName: string): string | false {
-  const filePath = path.resolve(
-    path.parse(process.cwd()).root +
-      APP_FILES_ROOT +
-      splitFileNamedUuid(fileName).join("/")
-  )
-
-  if (!existsSync(filePath)) return false
-
-  return filePath
-}
-
 /**
  * When you pass a filenameit resolves an absolute path directly to the file
  *
@@ -38,14 +26,17 @@ function getFilesPath(fileName: string): string | false {
  * //in case one doesnt exists: [false, "C:\\_nodejs\\project\\fo\\o1.jpg"]
  * ```
  */
-function getFilesPaths(
-  fileName: string | string[]
-): typeof fileName extends string[] ? (string | false)[] : string | false {
-  if (typeof fileName == "string")
-    return getFilesPath(fileName) as string | false
+function getFilesPath(fileName: string) {
+  const filePath = path.resolve(
+    path.parse(process.cwd()).root +
+      APP_FILES_ROOT +
+      splitFileNamedUuid(fileName).join("/")
+  )
 
-  //@ts-ignore
-  return fileName.map(fn => getFilesPath(fn)) as (string | false)[]
+  return {
+    path: filePath,
+    exists: !existsSync(filePath),
+  }
 }
 
-export default getFilesPaths
+export default getFilesPath
