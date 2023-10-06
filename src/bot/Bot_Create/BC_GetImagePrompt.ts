@@ -11,7 +11,15 @@ function BC_GetImagePrompt(
     "kissing",
     "sitting on",
   ]
-  const pictureType = ["selfie", "fullbody", "painting"]
+  const pictureType = [
+    "selfie",
+    "fullbody",
+    "fullbody",
+    "halfbody",
+    "portrait",
+    "painting",
+    "landscape",
+  ]
 
   return `${
     pictureType[Math.floor(Math.random() * pictureType.length)]

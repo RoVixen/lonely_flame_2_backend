@@ -1,10 +1,13 @@
 import { generateSlug } from "random-word-slugs"
 import BC_GetImagePrompt from "./BC_GetImagePrompt"
 
-function BC_GetWords() {
-  const ageReference = ["Woman", "Lady", "Girl", "Teen", "Mistress", "Gal"][
-    Math.floor(Math.random() * 6)
-  ]
+function BC_GetWords(gender: boolean) {
+  const ageReferenceList = gender
+    ? ["Man", "Gentleman", "Mister", "Lad"]
+    : ["Woman", "Lady", "Mistress", "Gal"]
+
+  const ageReference =
+    ageReferenceList[Math.floor(Math.random() * ageReferenceList.length)]
 
   const personality = generateSlug(2, {
     partsOfSpeech: ["adjective", "adjective"],

@@ -1,10 +1,16 @@
 import { characterAI } from "@@/characterai"
-import { CHARACTERAI_GIRLFRIEND_BOT_ID } from "@@/config"
+import {
+  CHARACTERAI_BOYFRIEND_BOT_ID,
+  CHARACTERAI_GIRLFRIEND_BOT_ID,
+} from "@@/config"
 import BC_GetWords from "./BC_GetWords"
 
-async function BC_GetTexts(words: ReturnType<typeof BC_GetWords>) {
+async function BC_GetTexts(
+  words: ReturnType<typeof BC_GetWords>,
+  gender: boolean
+) {
   const chat = await characterAI.client.createOrContinueChat(
-    CHARACTERAI_GIRLFRIEND_BOT_ID
+    gender ? CHARACTERAI_BOYFRIEND_BOT_ID : CHARACTERAI_GIRLFRIEND_BOT_ID
   )
 
   const descriptionAnswer = (await chat.sendAndAwaitResponse(
@@ -17,7 +23,13 @@ async function BC_GetTexts(words: ReturnType<typeof BC_GetWords>) {
   )) as { text: string }
 
   const nameAnswer = (await chat.sendAndAwaitResponse(
-    "now only write a name that matches with the description in this format: <<Name>>\n\nExamples:\n<<name>>\n<<Username>>\n<<Ms. Random>>",
+    "now only write a name that matches with the description in this format: <<Name>>\n\nExamples:\n<<" +
+      (gender ? "Maxwell" : "Veronica") +
+      ">>\n<<" +
+      (gender ? "Bobby Cadwell" : "Eleonore Banks") +
+      ">>\n<<" +
+      (gender ? "Mr." : "Ms.") +
+      " Gibbs>>",
     true
   )) as { text: string }
 
