@@ -1,4 +1,4 @@
-import { characterAI } from "@@/characterai"
+import { characterAI } from "@@/characterai_init"
 import {
   CHARACTERAI_BOYFRIEND_BOT_ID,
   CHARACTERAI_GIRLFRIEND_BOT_ID,
@@ -12,6 +12,8 @@ async function BC_GetTexts(
   const chat = await characterAI.client.createOrContinueChat(
     gender ? CHARACTERAI_BOYFRIEND_BOT_ID : CHARACTERAI_GIRLFRIEND_BOT_ID
   )
+
+  if (!chat) throw new Error("BC_GetTexts: chat is undefined")
 
   const descriptionAnswer = (await chat.sendAndAwaitResponse(
     `Write a date app profile description for a ${words.personality} ${

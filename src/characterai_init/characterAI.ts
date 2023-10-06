@@ -1,7 +1,7 @@
 import { CHARACTERAI_USER_TOKEN } from "@@/config"
 
-const CharacterAI = require("node_characterai")
-const characterAI = new CharacterAI()
+const node_characterai = require("node_characterai")
+const characterAI = new node_characterai()
 
 // console.log("characterAI", characterAI)
 
@@ -16,7 +16,7 @@ const toExport = {
       toExport.ConectionPromise = null
       // console.log("res toExport", toExport)
       // console.log("res", res)
-    }),
+    }) as Promise<any> | null,
 }
 
 // characterAIConectionPromise.then(res => {

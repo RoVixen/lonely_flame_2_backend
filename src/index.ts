@@ -4,7 +4,7 @@ import { SERVER_PORT } from "./config"
 import routes from "./routes"
 import bodyParser from "body-parser"
 import { connectionPromise } from "./db"
-import { characterAI } from "./characterai"
+import { characterAI } from "./characterai_init"
 // import multer from "multer"
 
 const app = express()
