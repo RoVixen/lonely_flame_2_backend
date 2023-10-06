@@ -1,4 +1,5 @@
 import { generateSlug } from "random-word-slugs"
+import BC_GetImagePrompt from "./BC_GetImagePrompt"
 
 function BC_GetWords() {
   const ageReference = ["Woman", "Lady", "Girl", "Teen", "Mistress", "Gal"][
@@ -29,11 +30,25 @@ function BC_GetWords() {
     .map(s => (s.endsWith("s") ? s + "es" : s + "s"))
     .join(" and ")
 
+  const profession: string | undefined =
+    Math.random() > 0.5
+      ? generateSlug(1, {
+          partsOfSpeech: ["noun"],
+          categories: {
+            noun: ["profession"],
+          },
+        })
+      : undefined
+
+  const prompt = BC_GetImagePrompt(appearance, ageReference, nouns)
+
   return {
     ageReference,
     personality,
     appearance,
     nouns,
+    prompt,
+    profession,
   }
 }
 

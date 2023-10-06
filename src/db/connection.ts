@@ -8,6 +8,7 @@ import {
 import { Sequelize } from "sequelize"
 
 import SampleModel from "./SampleModel"
+import BotModel from "./BotModel"
 
 if (
   !(

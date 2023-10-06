@@ -8,7 +8,11 @@ async function BC_GetTexts(words: ReturnType<typeof BC_GetWords>) {
   )
 
   const descriptionAnswer = (await chat.sendAndAwaitResponse(
-    `Write a date app profile description for a ${words.personality} ${words.ageReference} who likes ${words.nouns}, in appearance you look ${words.appearance}`,
+    `Write a date app profile description for a ${words.personality} ${
+      words.ageReference
+    } who likes ${words.nouns}${
+      words.profession ? ", your profession is " + words.profession : ""
+    }\n\nthis is your profile picture:\n${words.prompt}`,
     true
   )) as { text: string }
 
@@ -19,7 +23,7 @@ async function BC_GetTexts(words: ReturnType<typeof BC_GetWords>) {
 
   return {
     description: descriptionAnswer.text,
-    name: nameAnswer.text.slice(2,-2),
+    name: nameAnswer.text.slice(2, -2),
   }
 }
 

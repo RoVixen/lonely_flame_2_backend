@@ -1,0 +1,5 @@
+
+@limit = 5
+@offset = 0
+
+http://localhost:8000/bot/?limit={{limit}}&offset={{offset}}

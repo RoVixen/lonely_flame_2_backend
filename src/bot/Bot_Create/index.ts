@@ -5,7 +5,10 @@ import BC_GetWords from "./BC_GetWords"
 async function Bot_Create() {
   const words = BC_GetWords()
 
-  const results = await Promise.all([BC_GetImages(words), BC_GetTexts(words)])
+  const results = await Promise.all([
+    BC_GetImages(words.prompt),
+    BC_GetTexts(words),
+  ])
 
   return {
     img: results[0],

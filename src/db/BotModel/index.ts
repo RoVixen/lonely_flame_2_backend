@@ -2,7 +2,13 @@ import { DataTypes } from "sequelize"
 import { sequelize } from "../connection"
 import TBotModel from "./TBotModel"
 
-const SampleModel = sequelize.define<TBotModel>("sample", {
+const BotModel = sequelize.define<TBotModel>("bot", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+    unique: true,
+  },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -13,22 +19,26 @@ const SampleModel = sequelize.define<TBotModel>("sample", {
     defaultValue: false,
   },
   desc: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT("long"),
     allowNull: true,
   },
   pictures: {
     type: DataTypes.JSON,
-    allowNull: false,
+    allowNull: true,
   },
-  desc_chatid:{
-    type: DataTypes.STRING(50),
-    allowNull: false,
-  }
+  propmts: {
+    type: DataTypes.JSON,
+    allowNull: true,
+  },
+  words: {
+    type: DataTypes.JSON,
+    allowNull: true,
+  },
 })
 
-console.log(
-  "SampleModel === sequelize.models.User",
-  SampleModel === sequelize.models.User
-)
+// console.log(
+//   "BotModel === sequelize.models.User",
+//   BotModel === sequelize.models.User
+// )
 
-export default SampleModel
+export default BotModel
